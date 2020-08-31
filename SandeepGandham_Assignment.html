@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Digital Clock</title>
+	<style type="text/css">
+		body {
+			background-color: black;
+		}
+		#format{
+			font-family: sans-serif;
+			margin-left: 200px;
+			margin-top: 150px;
+			text-align: center;
+			padding: 25px;
+			width: 900px;
+			font-size: 150px;
+			border-radius: 10px;
+			background-color: black;
+			border: 1px solid white;
+			color: white;
+		}
+		#butn{
+			background-color: #4CAF50;
+			font-size: 20px;
+			margin-bottom: 50px;
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			float: center;
+		}
+	</style>
+</head>
+<body onload="digitalClock()">
+	<div id="format">
+	<div id="twelve">wjhtwj</div>
+		<button id="butn" onclick="digitalClock(24)">24 Hour Format</button>
+		<button id="butn" onclick="digitalClock(12)">12 Hour Format</button>
+	</div>
+
+
+
+<script type="text/javascript">
+	var twelveclock = null;
+	function digitalClock(format=24)
+	{
+		var time = new Date();
+		var hours = time.getHours();
+		var minutes = time.getMinutes();
+		var seconds = time.getSeconds();
+		var m = "AM";
+
+		if(hours > 12){
+			m = "PM";
+		}
+		if (hours < 10){
+			hours = '0' + hours;
+		}
+		if (minutes < 10){
+			minutes = '0' + minutes;
+		}
+		if (seconds < 10){
+			seconds = '0' + seconds;
+		}
+		if (format==24){
+			clearInterval(twelveclock);
+			document.getElementById('twelve').innerHTML = hours + ":" + minutes + ":" + seconds;
+			twelveclock = setInterval(digitalClock,500);
+		}
+		if (format==12){
+			clearInterval(twelveclock);
+			if(hours > 12){
+				hours = hours - 12;
+			}
+			document.getElementById('twelve').innerHTML = hours + ":" + minutes + ":" + seconds + " "+m;
+			twelveclock = setInterval(function(){ digitalClock(format)},500);
+		}
+
+	}
+
+</script>
+</body>
+</html>
